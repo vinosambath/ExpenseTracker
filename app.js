@@ -13,7 +13,7 @@ var logger = function(req, res, next) {
 	next();
 }
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', 3000);
 app.set('view engine', 'jade');
 app.use(logger);
 app.use(bodyParser.json());

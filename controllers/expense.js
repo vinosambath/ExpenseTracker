@@ -38,6 +38,24 @@ module.exports.controller = function(app) {
 		})
 	})
 
+	app.get('/expenseByCategory', function(req, res) {
+		Expense.aggregate([
+			{ $unwind: "$categories" },
+			{ 
+				$group: {
+					_id : "$categories",
+					byDate: { $sum: "$amount" }
+				}
+			}
+		], function(err, result) {
+			if(err) {
+				console.log(err);
+				return;
+			}
+			console.log(result);
+		})
+	})
+
 	app.delete('/deleteExpense', function(req, res) {
 		var id = req.body._id;
 		Expense.remove({
