@@ -18,6 +18,23 @@ module.exports.controller = function(app) {
 		Expense.find({}).exec(function(err, data) {
 			console.log(data);
 			res.send('data', data);
-		})
+		});
 	});
+
+	app.get('/expenseByDate', function(req, res) {
+		Expense.aggregate([
+			{
+				$group: {
+					_id: { $substr: ["$Created_at", 0, 10] },
+					byDate: { $sum: "$amount" }
+				}
+			}
+		], function(err, result) {
+			if(err) {
+				console.log(err);
+				return;
+			}
+			console.log(result);
+		})
+	})
 }
