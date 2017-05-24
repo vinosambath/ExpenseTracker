@@ -1,0 +1,1 @@
+Simple Expense Tracker with Node JS, Mongo and React. The user can add expense on multiple categories. 
