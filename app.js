@@ -7,8 +7,14 @@ var fs = require('fs');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/expensetracker');
 
+//simple middleware
+var logger = function(req, res, next) {
+	next();
+}
+
 app.set('port', process.env.PORT || 3000);
 app.set('view engine', 'jade');
+app.use(logger);
 
 fs.readdirSync('./controllers').forEach(function (file) {
   if(file.substr(-3) == '.js') {
