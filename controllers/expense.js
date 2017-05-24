@@ -37,4 +37,25 @@ module.exports.controller = function(app) {
 			console.log(result);
 		})
 	})
+
+	app.delete('/deleteExpense', function(req, res) {
+		var id = req.body._id;
+		Expense.remove({
+			_id: id
+		}, function(err, blog) {
+			if(err) return res.send(err);
+			res.json({"" : "bo"})
+		})
+	})
+
+	app.put('/editExpense', function(req, res) {
+		var id = req.body._id;
+		delete req.body._id;
+
+		Expense.update({ _id: id}, req.body, function(err, numAffected) {
+			console.log(err);
+			console.log(numAffected)
+		})
+		res.json({"": ""})
+	})
 }
