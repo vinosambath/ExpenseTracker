@@ -15,4 +15,11 @@ module.exports.controller = function(app) {
 		category.save();
 		res.send('data')
 	});
+
+	app.get('/getCategories', function(req, res) {
+		var resp = Category.find({}).exec(function(err, des) {
+			console.log(des)
+			res.send('data', des);
+		})
+	});
 }
