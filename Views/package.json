@@ -1,0 +1,11 @@
+{
+  "name": "expensetrackerview",
+  "version": "1.0.0",
+  "description": "view of expense tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vinoth Kumar s",
+  "license": "ISC"
+}
