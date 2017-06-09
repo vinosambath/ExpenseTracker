@@ -17,6 +17,7 @@ app.set('port', 3000);
 app.set('view engine', 'jade');
 app.use(logger);
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname,'Views/Scripts')))
 
 fs.readdirSync('./controllers').forEach(function (file) {
   if(file.substr(-3) == '.js') {

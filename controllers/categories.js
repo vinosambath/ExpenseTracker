@@ -1,10 +1,11 @@
 var mongoose = require('mongoose')
 var Category = require('../models/category');
+var path = require('path')
 
 module.exports.controller = function(app) {
 
 	app.get('/', function(req, res) {
-		res.send('data', { title: 'Bookshop | Categories' })
+		res.sendFile(path.join(__dirname + '/../Views/ind.html'))
 	});
 
 	app.post('/addCategory', function(req, res) {
@@ -17,6 +18,7 @@ module.exports.controller = function(app) {
 	});
 
 	app.get('/getCategories', function(req, res) {
+		console.log("category");
 		var resp = Category.find({}).exec(function(err, des) {
 			console.log(des)
 			res.send('data', des);

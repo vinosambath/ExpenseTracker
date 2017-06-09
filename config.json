@@ -1,0 +1,7 @@
+{
+  "database": {
+  	"dbtype": "mongodb",
+    "host": "localhost",
+    "dbname": "expensetracker"
+  }
+}

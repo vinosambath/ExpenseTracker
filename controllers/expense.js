@@ -17,7 +17,7 @@ module.exports.controller = function(app) {
 	app.get('/getAllExpense', function(req, res) {
 		Expense.find({}).exec(function(err, data) {
 			console.log(data);
-			res.send('data', data);
+			res.send({ 'data': data });
 		});
 	});
 
