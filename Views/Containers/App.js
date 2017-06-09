@@ -5,29 +5,83 @@ import ExpenseList from '../Components/ExpenseList';
 
 class App extends React.Component {
 
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			expenses: [],
+			categories: [],
+			expenseEdit: false,
+			categoryEdit: false
+		}
+
+		this.reverseExpenseEdit = this.reverseExpenseEdit.bind(this);
+		this.saveExpense = this.saveExpense.bind(this);
+	}
+
+	saveExpense(expense) {
+		$.ajax({
+			url: 'http://localhost:3000/addExpense',
+			type: "POST",
+			data: expense,
+			cache: 'false',
+			datatype: 'json',
+			success: function(data) {
+
+			}.bind(this),
+			error: function(data) {
+
+			}.bind(this),
+			complete: function(data) {
+				var expEdit = this.state.expenseEdit;
+				expEdit = !expEdit;
+				this.setState({ expenseEdit: expEdit });
+				this.getAllExpense();
+			}.bind(this)
+		})
+	}
+
 	getAllExpense() {
-		alert("in");
 		$.ajax({
 			url: 'http://localhost:3000/getAllExpense',
 			type: "GET",
 			cache: 'false',
 			datatype: 'json',
 			success: function(data) {
-				alert(data)
+				this.setState({ expenses: data.data });
+				console.log(this.state.expenses);
 			}.bind(this),
 			error: function(data) {
-				alert(data)
-				console.log(data);
+
 			}.bind(this)
 		})
 	}
 
 	getAllCategories() {
+		$.ajax({
+			url: 'http://localhost:3000/getCategories',
+			type: "GET",
+			cache: 'false',
+			datatype: 'json',
+			success: function(data) {
+				this.setState({ categories: data.data });
+				console.log(this.state.categories)
+			}.bind(this),
+			error: function(data) {
 
+			}.bind(this)
+		})
 	}
 
-	componentDidMount() {
+	reverseExpenseEdit() {
+		var expenseEditValue = this.state.expenseEdit;
+		expenseEditValue = !expenseEditValue;
+		this.setState({ expenseEdit: expenseEditValue });
+	}
+
+	componentWillMount() {
 		this.getAllExpense();
+		this.getAllCategories();
 	}
 
   render () {
@@ -37,8 +91,15 @@ class App extends React.Component {
 				Expense Tracker
 			</div>
 			<div class="bottom" style={{ 'margin-top': '25px', padding: '50px'}}>
-				<ExpenseList />
-				<CategoryList />
+				<ExpenseList 
+					expenses={this.state.expenses}
+					expenseEdit={this.state.expenseEdit}
+					reverseExpenseEdit={this.reverseExpenseEdit}
+					saveExpense={this.saveExpense}
+					categories={this.state.categories} />
+				<CategoryList 
+					categories={this.state.categories}
+					categoryEdit={this.state.categoryEdit} />
 			</div>
 		</div>
     )

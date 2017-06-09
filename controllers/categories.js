@@ -19,9 +19,8 @@ module.exports.controller = function(app) {
 
 	app.get('/getCategories', function(req, res) {
 		console.log("category");
-		var resp = Category.find({}).exec(function(err, des) {
-			console.log(des)
-			res.send('data', des);
+		var resp = Category.find({}).exec(function(err, data) {
+			res.send({ 'data': data });
 		})
 	});
 }

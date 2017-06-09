@@ -16,7 +16,7 @@ var logger = function(req, res, next) {
 app.set('port', 3000);
 app.set('view engine', 'jade');
 app.use(logger);
-app.use(bodyParser.json());
+app.use(bodyParser());
 app.use(express.static(path.join(__dirname,'Views/Scripts')))
 
 fs.readdirSync('./controllers').forEach(function (file) {
