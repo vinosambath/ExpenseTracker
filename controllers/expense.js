@@ -52,7 +52,7 @@ module.exports.controller = function(app) {
 			_id: id
 		}, function(err, blog) {
 			if(err) return res.send(err);
-			res.json({"" : "bo"})
+			res.json({"data" : "deleted"})
 		})
 	})
 
@@ -62,6 +62,6 @@ module.exports.controller = function(app) {
 
 		Expense.update({ _id: id}, req.body, function(err, numAffected) {
 		})
-		res.json({"": ""})
+		res.json({"data": "edited"})
 	})
 }
