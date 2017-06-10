@@ -16,7 +16,9 @@ class App extends React.Component {
 		}
 
 		this.reverseExpenseEdit = this.reverseExpenseEdit.bind(this);
+		this.reverseCategoryEdit = this.reverseCategoryEdit.bind(this);
 		this.saveExpense = this.saveExpense.bind(this);
+		this.saveCategory = this.saveCategory.bind(this);
 	}
 
 	saveExpense(expense) {
@@ -38,7 +40,29 @@ class App extends React.Component {
 				this.setState({ expenseEdit: expEdit });
 				this.getAllExpense();
 			}.bind(this)
-		})
+		});
+	}
+
+	saveCategory(category) {
+		$.ajax({
+			url: 'http://localhost:3000/addCategory',
+			type: "POST",
+			data: category,
+			cache: 'false',
+			datatype: 'json',
+			success: function(data) {
+
+			}.bind(this),
+			error: function(data) {
+
+			}.bind(this),
+			complete: function(data) {
+				var catEdit = this.state.categoryEdit;
+				catEdit = !catEdit;
+				this.setState({ categoryEdit: catEdit });
+				this.getAllCategories();
+			}.bind(this)
+		});
 	}
 
 	getAllExpense() {
@@ -49,7 +73,6 @@ class App extends React.Component {
 			datatype: 'json',
 			success: function(data) {
 				this.setState({ expenses: data.data });
-				console.log(this.state.expenses);
 			}.bind(this),
 			error: function(data) {
 
@@ -65,7 +88,6 @@ class App extends React.Component {
 			datatype: 'json',
 			success: function(data) {
 				this.setState({ categories: data.data });
-				console.log(this.state.categories)
 			}.bind(this),
 			error: function(data) {
 
@@ -77,6 +99,12 @@ class App extends React.Component {
 		var expenseEditValue = this.state.expenseEdit;
 		expenseEditValue = !expenseEditValue;
 		this.setState({ expenseEdit: expenseEditValue });
+	}
+
+	reverseCategoryEdit() {
+		var categoryEditValue = this.state.categoryEdit;
+		categoryEditValue = !categoryEditValue;
+		this.setState({ categoryEdit: categoryEditValue });
 	}
 
 	componentWillMount() {
@@ -99,7 +127,9 @@ class App extends React.Component {
 					categories={this.state.categories} />
 				<CategoryList 
 					categories={this.state.categories}
-					categoryEdit={this.state.categoryEdit} />
+					categoryEdit={this.state.categoryEdit}
+					reverseCategoryEdit={this.reverseCategoryEdit}
+					saveCategory={this.saveCategory} />
 			</div>
 		</div>
     )

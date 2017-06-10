@@ -9,16 +9,12 @@ module.exports.controller = function(app) {
 	});
 
 	app.post('/addCategory', function(req, res) {
-		var category = new Category({
-			name: 'vinoth',
-			description: 'description'
-		});
+		var category = new Category(req.body);
 		category.save();
 		res.send('data')
 	});
 
 	app.get('/getCategories', function(req, res) {
-		console.log("category");
 		var resp = Category.find({}).exec(function(err, data) {
 			res.send({ 'data': data });
 		})

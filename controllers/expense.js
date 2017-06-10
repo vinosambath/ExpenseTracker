@@ -4,7 +4,6 @@ var Expense = require('../models/expense')
 module.exports.controller = function(app) {
 
 	app.post('/addExpense', function(req, res) {
-		console.log(req.body)
 		var expense = new Expense(req.body);
 		expense.save();
 		res.send('data');
@@ -26,10 +25,8 @@ module.exports.controller = function(app) {
 			}
 		], function(err, result) {
 			if(err) {
-				console.log(err);
 				return;
 			}
-			console.log(result);
 		})
 	})
 
@@ -44,10 +41,8 @@ module.exports.controller = function(app) {
 			}
 		], function(err, result) {
 			if(err) {
-				console.log(err);
 				return;
 			}
-			console.log(result);
 		})
 	})
 
@@ -66,8 +61,6 @@ module.exports.controller = function(app) {
 		delete req.body._id;
 
 		Expense.update({ _id: id}, req.body, function(err, numAffected) {
-			console.log(err);
-			console.log(numAffected)
 		})
 		res.json({"": ""})
 	})
