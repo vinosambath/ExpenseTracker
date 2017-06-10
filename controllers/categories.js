@@ -5,7 +5,7 @@ var path = require('path')
 module.exports.controller = function(app) {
 
 	app.get('/', function(req, res) {
-		res.sendFile(path.join(__dirname + '/../Views/ind.html'))
+		res.sendFile(path.join(__dirname + '/../Views/index.html'))
 	});
 
 	app.post('/addCategory', function(req, res) {
